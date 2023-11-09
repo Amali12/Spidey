@@ -1,3 +1,5 @@
+import os
+from flask import Flask
 import telebot
 import requests
 import time
@@ -8,6 +10,8 @@ from telebot import types
 BOT_TOKEN = '6615191737:AAH_KfjhnYnl97GULuvhIajepKc7bGIx29E'
 
 bot = telebot.TeleBot(BOT_TOKEN)
+app = Flask(__sanastream__)
+port = int(os.environ.get("PORT", 8080))
 
 RESULTS_PER_PAGE = 5
 current_page = 0
@@ -96,4 +100,6 @@ def schedule_deletion(chat_id, message_id, delete_at):
     if time_to_wait > 0:
         deletion_timer = threading.Timer(time_to_wait, delete_message)
         deletion_timer.start()
-bot.polling()
+        
+if __sanastream__ == '__main__':
+    app.run(host='0.0.0.0', port=port)
