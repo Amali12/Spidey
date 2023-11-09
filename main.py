@@ -38,7 +38,7 @@ def echo(message):
         bot.send_message(message.chat.id, f"No links found for keyword '{keyword}'")
 
 def fetch_cms_links(keyword):
-    api_url = "https://nxshare.top/m/api.php"
+    api_url = "https://nxshare.xyz/m/api.php"
     response = requests.get(api_url)
     data = response.json()
 
