@@ -3,11 +3,15 @@ import requests
 import time
 import threading
 from telebot import types
+from flask import Flask, request
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-BOT_TOKEN = '6615191737:AAH_KfjhnYnl97GULuvhIajepKc7bGIx29E'
+BOT_TOKEN = 'YOUR_BOT_TOKEN'
 
 bot = telebot.TeleBot(BOT_TOKEN)
+
+# Initialize the Flask app
+app = Flask(__name__)
 
 RESULTS_PER_PAGE = 5
 current_page = 0
@@ -96,4 +100,13 @@ def schedule_deletion(chat_id, message_id, delete_at):
     if time_to_wait > 0:
         deletion_timer = threading.Timer(time_to_wait, delete_message)
         deletion_timer.start()
-bot.polling()
+
+# Add a route for the Flask app to keep it alive on Heroku
+@app.route('/')
+def keep_alive():
+    return "Bot is running!"
+
+# Start the Flask app
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
+    app.run(host='0.0.0.0', port=8080)
