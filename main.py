@@ -96,8 +96,4 @@ def schedule_deletion(chat_id, message_id, delete_at):
     if time_to_wait > 0:
         deletion_timer = threading.Timer(time_to_wait, delete_message)
         deletion_timer.start()
-
-#bot.polling()
-# For running the bot on Heroku, you don't need to specify a port
-if __name__ == "__main__":
-    bot.polling(none_stop=True)
+bot.polling()
